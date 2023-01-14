@@ -1,0 +1,5 @@
+<h1>User Info</h1>
+<% @users.each do |user| %>
+ <p>name:<%= current_user.name %></p>
+ <p>introduction:<%= user.opinion %></p>
+<% end %>
