@@ -1,0 +1,11 @@
+<div>
+ <h1>User Info</h1>
+  <%= image_tag current_user.get_profile_image(100,100) %>
+  <p>Name</p>
+  <%= current_user.name%>
+   <p>introduction</p>
+  <%= current_user.introduction %>
+  <%= link_to "Edit User",edit_user_path(current_user.id) %>
+ </div>
+
+

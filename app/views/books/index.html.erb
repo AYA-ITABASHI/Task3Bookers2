@@ -1,17 +1,40 @@
-<% @books.each do |book| %>
- <div>
-  <%= link_to book_path(book.id) do %>
-   <%= image_tag book.get_image %>
-  <% end %>
- </div>
- <div>
-  <%= image_tag book.get_image %>
-  <%= image_tag 'no_image.jpg' %>
-  <p>Title:
-   <%= link_to  book_path(book.id) do %>
+<%= flash[:notice] %>
+<h1>Books</h1>
+<% @book.each do |book| %>
+  <div>
+  <p>Title：
+   <%= link_to book_path(book.id) do %>
    <%= book.title %></p>
-  <% end %>
-  <p>Opinion：<%= book.opinion %></p>
-  <p><%= book.user.name %></p>
+   <% end %>
+   <%= link_to user_path(book.user.id) do %>
+
+    <%= image_tag book.user.get_profile_image(100,100) %>
+   <% end %>
+
+  <p>Opinion:<%= book.body %></p>
  </div>
 <% end %>
+
+<h1>New Book</h1>
+<% if @books.errors.any? %>
+  <%= @books.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @books.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+  <%= form_with model: @books do |f| %>
+
+    <h4>Title</h4>
+      <%= f.text_field :title %>
+    <h4>opinion</h4>
+      <%= f.text_area :body %>
+    <%= f.submit 'create book' %>
+  <% end %>
+<%= render 'list', books: @books %>
+
+
+
+
+
