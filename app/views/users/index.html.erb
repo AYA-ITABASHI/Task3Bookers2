@@ -1,23 +1,54 @@
-<h1>Users</h1>
-<% @users.each do |user| %>
- <div>
-  <p>image:
-   <%= image_tag user.get_profile_image(100,100) %>
-  </p>
-  <p>name:<%= user.name %></p>
-  <%= link_to"Show", user_path(user.id)%>
-<% end %>
+<main>
+ <div class="container">
+ <div class="row">
+   <div class="col-md-4">
+    <%= render 'books/list', books: @books %>
+
+    <h3>New book</h3>
+      <% if Book.new.errors.any? %>
+      <%= Book.new.errors.count %>errors prohibited this obj from being saved:
+      <ul>
+       <% Book.new.errors.full_messages.each do |message| %>
+       <li><%= message %></li>
+       <% end %>
+      </ul>
+      <% end %>
+    <%= form_with model: Book.new do |f| %>
+      <label>Title</label><br>
+      <%= f.text_field :title %><br>
+     <label>Opinion</label><br>
+      <%= f.text_area :body %><br>
+    <input class= "btn btn-success" type="submit" value="Create Book">
+     <% end %>
+   </div>
+
+   <div class="col-md-8.offset-md-1">
+   <h2>Users</h2>
+    <table class=class="table table-striped">
+     <thead>
+      <tr class="border-top border-bottom">
+       <th>image</th>
+       <th>name</th>
+      </tr>
+     </thead>
+     <tbody>
+      <% @users.each do |user| %>
+      <tr class="border-top border-bottom">
+       <td><%= image_tag user.get_profile_image(100,100) %></td>
+       <td><%= user.name %></td>
+       <th><%= link_to"Show", user_path(user.id)%></th>
+      </tr>
+      <% end %>
+     </tbody>
+    </table>
+
+   </div>
+
+  </div>
  </div>
- <h1>New Book</h1>
-
-  <%= form_with model: @book do |f| %>
-
-    <h4>Title</h4>
-      <%= f.text_field :title %>
-    <h4>opinion</h4>
-      <%= f.text_area :body %>
-    <%= f.submit 'create book' %>
-  <% end %>
+</main>
 
 
- <%= render 'books/list', books: @books %>
+/main>
+
+
