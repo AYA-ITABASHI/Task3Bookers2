@@ -1,16 +1,21 @@
 <div>
  <h3>User Info</h3>
-  <%= image_tag current_user.get_profile_image(100,100) %>
+  <%= image_tag books.get_profile_image(100,100) %>
   <table>
    <tr>
-    <th>Name</th><th><%= current_user.name%></th>
+    <th>Name</th><th><%= books.name%></th>
    </tr>
    <tr>
     <th>introduction</th>
-    <th><%= current_user.introduction %></th>
+    <th><%= books.introduction %></th>
    </tr>
    <tr>
-    <th><a class="btn btn-block btn-outline-secondary " href="/users/<%= current_user.id %>/edit"><i class=" fas fa-user-cog "></i></a>
+    <% if books==current_user %>
+    <th><a class="btn btn-block btn-outline-secondary " href="/users/<%= current_user.id %>/edit"><i class="fas fa-user-cog"></i></a>
+     </th>
+    <% else %>
+    <th><a class="btn btn-block btn-outline-secondary"  href="/users/<%= books.id %>/edit"><i class="fas fa-user-cog"></i></i></a>
+      <% end %>
      </th>
    </tr>
   </table>

@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users=User.all
+    @books=current_user
   end
 
   def show
@@ -16,7 +17,7 @@ class UsersController < ApplicationController
    if @user.id ==current_user.id
      render :edit
    else
-      redirect_to users_path
+      redirect_to user_path(current_user.id)
    end
   end
 

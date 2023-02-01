@@ -1,19 +1,22 @@
-<%= flash[:notice] %>
+
 <main>
  <div class="container">
+  <%= flash[:notice] %>
+    <% if @books.errors.any? %>
+    <h3><%= @books.errors.count %>errors prohibited this obj from being saved:</h3>
+     <ul>
+      <% @books.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+     </ul>
+    <% end %>
   <div class="row">
-   <div class="col-md-4">
-    <%= render 'list', books: @books %>
+
+   <div class="col-md-3">
+    <%= render 'list', books: @user %>
 
     <h3>New book</h3>
-    <% if @books.errors.any? %>
-     <%= @books.errors.count %>errors prohibited this obj from being saved:
-    <ul>
-     <% @books.errors.full_messages.each do |message| %>
-     <li><%= message %></li>
-     <% end %>
-    </ul>
-    <% end %>
+
     <%= form_with model: @books do |f| %>
 
     <h4>Title</h4>
@@ -23,7 +26,7 @@
     <input class= "btn btn-success" type="submit" value="Create Book">
     <% end %>
    </div>
-   <div class="col-md-8.offset-md-1">
+   <div class="col-md-8 offset-md-1">
     <h1>Books</h1>
     <table class="table table-striped">
      <thead>
@@ -52,7 +55,13 @@
   </div>
  </div>
 </main>
-
+ <div class="container">
+  <div class="row">
+   <div class="mx-auto">
+   <footer>CopyRight Infratop.inc</footer>
+   </div>
+  </div>
+ </div>
 
 
 

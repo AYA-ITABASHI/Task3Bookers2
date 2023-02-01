@@ -1,40 +1,55 @@
 <%= flash[:notice] %>
-<div>
-  <h2>Book detail</h2>
-  <table class="table table-striped">
-   <tr><%= link_to user_path(@book.user) do %>
-       <%= image_tag @book.user.get_profile_image(100,100) %>
-       <% end %>
-   </tr>
-   <tr>Title：<%= link_to @book.title,book_path(@book.id) %></tr>
-   <tr>Opinion：<%= @book.body %>
-       <%= @book.user.name%>
-   </tr>
-   <tr><% if @book.user_id == current_user.id %>
-       <%= link_to "Edit", edit_book_path(@book.id) %>
-       <%= link_to "Destroy", book_path(@book.id), method: :delete %>
-       <% end %>
-   </tr>
- </table>
-</div>
-
-
-<h1>New book</h1>
-<% if @books.errors.any? %>
-  <%= @books.errors.count %>errors prohibited this obj from being saved:
-  <ul>
+<main>
+ <div class="container">
+  <div class="row">
+   <div class="col-md-3">
+    <%= render 'list', books: @user %>
+    <h3>New book</h3>
+    <% if @books.errors.any? %>
+    <%= @books.errors.count %>errors prohibited this obj from being saved:
+    <ul>
     <% @books.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
+    <li><%= message %></li>
     <% end %>
-  </ul>
-<% end %>
-<%= form_with model: @books,  method: :post do |f| %>
- <h4>Title</h4>
-  <%= f.text_field :title %>
- <h4>opinion</h4>
-   <%= f.text_area :body %>
- <input class= "btn btn-success" type="submit" value="Create Book">
-
-  <% end %>
-
-<%= render 'list', books: @books %>
+    </ul>
+    <% end %>
+    <%= form_with model: @books,  method: :post do |f| %>
+    <h4>Title</h4>
+    <%= f.text_field :title %>
+    <h4>opinion</h4>
+    <%= f.text_area :body %>
+    <input class= "btn btn-success" type="submit" value="Create Book">
+    <% end %>
+   </div>
+   <div class="col-md-8 offset-md-1">
+   <table class="table table-striped">
+    <thead>
+     <h2>Book detail</h2>
+    </thead>
+    <tbody>
+     <tr>
+      <td><%= link_to user_path(@book.user) do %>
+          <%= image_tag @book.user.get_profile_image(100,100) %>
+        <br><%= @book.user.name%>
+          <% end %>
+      </td>
+      <td><%= link_to @book.title,book_path(@book.id) %></td>
+      <td><%= @book.body %></td>
+       <% if @book.user_id == current_user.id %>
+       <td><a class=" btn btn-success btn-block" href="/books/<%=@book.id %>/edit">Edit</a></td>
+       <td><a class=" btn btn-danger btn-block" data-method="delete" href="/books/<%=@book.id %>">Destroy</a></td>
+       <% end %>
+     </tr>
+    </tbody>
+   </table>
+   </div>
+  </div>
+ </div>
+</main>
+ <div class="container">
+  <div class="row">
+   <div class="mx-auto">
+   <footer>CopyRight Infratop.inc</footer>
+   </div>
+  </div>
+ </div>
